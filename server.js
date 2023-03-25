@@ -18,7 +18,7 @@ app.use(errorHandler);
 
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile('./index.html');
 });
 
 kioskDBConnection().then(() => {
