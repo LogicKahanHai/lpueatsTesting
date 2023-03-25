@@ -18,8 +18,23 @@ app.use(errorHandler);
 
 
 app.get('/', (req, res) => {
+    if(req.headers['user-agent'].includes('PostmanRuntime')) {
+        return res.json(
+            {
+                "message": "Welcome to the LPUEats API",
+                "version": "0.0.1",
+                "routes_ready_for_testing": {
+                    "profile": "/api/dev/customers/profile",
+                    "register": "/api/dev/customers/register",
+                    "login": "/api/dev/customers/login",
+                    "logout": "/api/dev/customers/logout",
+                    "updatePassword": "/api/dev/customers/password",
+                }
+            }
+        );
+    }
     res.send(`{<br/>&emsp;
-        "message": "Welcome to the Kiosk API",<br/>&emsp;
+        "message": "Welcome to the LPUEats API",<br/>&emsp;
         "version": "0.0.1",<br/>&emsp;
         "routes_ready_for_testing": {<br/>&emsp;&emsp;
             "profile": "/api/dev/customers/profile",<br/>&emsp;&emsp;
@@ -30,7 +45,7 @@ app.get('/', (req, res) => {
         }<br/>
 
 
-    }`);
+    }`)
 });
 
 kioskDBConnection().then(() => {
