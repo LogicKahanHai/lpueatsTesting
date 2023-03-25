@@ -21,12 +21,12 @@ app.get('/', (req, res) => {
     res.send(`{<br/>
         "message": "Welcome to the Kiosk API",<br/>
         "version": "0.0.1",<br/>
-        "routes": {<br/>&emsp;&emsp;
-            "profile": "/api/dev/customers/profile",<br/>&emsp;&emsp;
-            "register": "/api/dev/customers/register",<br/>&emsp;&emsp;
-            "login": "/api/dev/customers/login",<br/>&emsp;&emsp;
-            "logout": "/api/dev/customers/logout",<br/>&emsp;&emsp;
-            "updatePassword": "/api/dev/customers/password",<br/>&emsp;&emsp;
+        "routes_ready_for_testing": {<br/>&emsp;
+            "profile": "/api/dev/customers/profile",<br/>&emsp;
+            "register": "/api/dev/customers/register",<br/>&emsp;
+            "login": "/api/dev/customers/login",<br/>&emsp;
+            "logout": "/api/dev/customers/logout",<br/>&emsp;
+            "updatePassword": "/api/dev/customers/password",<br/>&emsp;
         }<br/>
 
 
