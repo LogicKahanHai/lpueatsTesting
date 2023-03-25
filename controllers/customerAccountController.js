@@ -8,6 +8,7 @@ const {constants} = require('../constants');
 const Customer = require('../models/customerModel');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const { userDBConnection } = require('../config/dbConnection');
 
 // @desc    Get user profile
 //! @route   GET /api/customers/profile
@@ -36,7 +37,8 @@ const getUserProfile = asyncHandler(async (req, res) => {
 const updateUserProfile = asyncHandler(async (req, res) => {
     //jwt has ID and email
     //jwt has been verified by tokenValidator
-    const user = await Customer.findById(req.user.id);
+    const userDb = await userDBConnection();
+    const user = await userDb.collection('customers').findOne({ _id: req.user.id });
     if(user) {
         user.name = req.body.name || user.name;
         user.email = req.body.email || user.email;
@@ -62,7 +64,8 @@ const updateUserPassword = asyncHandler(async (req, res) => {
     //jwt has ID and email
     //jwt has been verified by tokenValidator
     //req has oldPassword and newPassword
-    const user = await Customer.findById(req.user.id);
+    const userDb = await userDBConnection();
+    const user = await userDb.collection('customers').findOne({ _id: req.user.id });
     if(user) {
         const isMatch = await bcrypt.compare(req.body.oldPassword, user.password);
         if(!isMatch) {
