@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
-userDBConnection().then(() => {
+kioskDBConnection().then(() => {
     app.listen(port, () => {
         console.log(`Listening on port ${port}`);
     });

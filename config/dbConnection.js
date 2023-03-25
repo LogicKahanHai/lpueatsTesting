@@ -5,10 +5,9 @@ const userDBConnection = async () => {
     const userDB = await mongoose.connect(`${process.env.MONGO_URI_USERDB}`);
 
 }
-console.log('MongoDB connected: ' + userDB);
 
 const kioskDBConnection = async () => {
-    const kioskDb = await mongoose.connect(`${process.env.MONGO_URI_KIOSKDB}`);
+    const kioskDb = await mongoose.connect(`${process.env.MONGO_URI_USERDB}`);
     console.log('MongoDB connected');
     console.log(`MongoDB connected to ${kioskDb.connection.host}`);
     console.log(`MongoDB name: ${kioskDb.connection.name}`);
