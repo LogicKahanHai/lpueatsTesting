@@ -18,7 +18,6 @@ app.use(errorHandler);
 
 
 app.get('/', (req, res) => {
-    //res.sendFile('./index.html');
     res.send('Hello World');
 });
 
