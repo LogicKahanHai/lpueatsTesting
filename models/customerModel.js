@@ -1,5 +1,32 @@
 const mongoose = require('mongoose');
 
+const cartItem = new mongoose.Schema({
+    itemName: {
+        type: String,
+        required: [true, 'Please enter the item name'],
+        trim: true,
+        maxLength: [100, 'Item name cannot exceed 100 characters']
+    },
+    itemPrice: {
+        type: Number,
+        required: [true, 'Please enter the item price'],
+        trim: true,
+        maxLength: [100, 'Item price cannot exceed 100 characters']
+    },
+    itemQuantity: {
+        type: Number,
+        required: [true, 'Please enter the item quantity'],
+        trim: true,
+        maxLength: [100, 'Item quantity cannot exceed 100 characters']
+    },
+    itemTotalPrice: {
+        type: Number,
+        required: [true, 'Please enter the item total price'],
+        trim: true,
+        maxLength: [100, 'Item total price cannot exceed 100 characters']
+    }
+});
+
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -34,10 +61,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: 'customer'
     },
-    // createdAt: {
-    //     type: Date,
-    //     default: Date.now
-    // }
+    cart: {
+        type: [cartItem],
+        default: []
+    }
 });
 
 module.exports = mongoose.model('Customer', userSchema);

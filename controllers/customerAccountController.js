@@ -4,9 +4,8 @@
 //[ ]: How to revoke previous jwt after update?
 
 const asyncHandler = require('express-async-handler');
-const resConstants = require('../constants');
+const {constants} = require('../constants');
 const Customer = require('../models/customerModel');
-const Vendor = require('../models/vendorModel');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
@@ -18,7 +17,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
     //jwt has been verified by tokenValidator
     const user = await Customer.findById(req.user.id);
     if(user) {
-        res.status(resConstants.OK).json({
+        res.status(constants.OK).json({
             _id: user._id,
             name: user.name,
             email: user.email,
@@ -26,7 +25,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
             whatsappNumber: user.whatsappNumber,
         });
     } else {
-        res.status(resConstants.NOT_FOUND);
+        res.status(constants.NOT_FOUND);
         throw new Error('User not found');
     }
 });
@@ -45,13 +44,13 @@ const updateUserProfile = asyncHandler(async (req, res) => {
         user.whatsappNumber = req.body.whatsappNumber || user.whatsappNumber;
         const updatedUser = await user.save();
         let token = jwt.sign({ id: updatedUser._id, email: updatedUser.email }, process.env.JWT_SECRET, { expiresIn: '7d' });
-        res.status(resConstants.OK).json({
+        res.status(constants.OK).json({
             success: true,
             message: 'User updated successfully',
             token
         });
     } else {
-        res.status(resConstants.NOT_FOUND);
+        res.status(constants.NOT_FOUND);
         throw new Error('User not found');
     }
 });
@@ -67,19 +66,19 @@ const updateUserPassword = asyncHandler(async (req, res) => {
     if(user) {
         const isMatch = await bcrypt.compare(req.body.oldPassword, user.password);
         if(!isMatch) {
-            res.status(resConstants.BAD_REQUEST);
+            res.status(constants.BAD_REQUEST);
             throw new Error('Invalid credentials');
         }
         user.password = await bcrypt.hash(req.body.newPassword, 10);
         const updatedUser = await user.save();
         let token = jwt.sign({ id: updatedUser._id, email: updatedUser.email }, process.env.JWT_SECRET, { expiresIn: '7d' });
-        res.status(resConstants.OK).json({
+        res.status(constants.OK).json({
             success: true,
             message: 'Password updated successfully',
             token
         });
     } else {
-        res.status(resConstants.NOT_FOUND);
+        res.status(constants.NOT_FOUND);
         throw new Error('User not found');
     }
 });
@@ -128,7 +127,7 @@ const createUser = asyncHandler(async (req, res, next) => {
     const { name, email, password, deliveryAddress, whatsappNumber, role } = req.body;
 
     if(!name || !email || !password || !deliveryAddress || !whatsappNumber) {
-        res.status(resConstants.BAD_REQUEST);
+        res.status(constants.BAD_REQUEST);
         throw new Error('Please enter all fields');
 
     }
@@ -138,7 +137,7 @@ const createUser = asyncHandler(async (req, res, next) => {
 
     let userAvail = await Customer.findOne({ email });
     if(userAvail) {
-        res.status(resConstants.BAD_REQUEST);
+        res.status(constants.BAD_REQUEST);
         throw new Error('User already exists. Please login.');
     }
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -155,7 +154,7 @@ const createUser = asyncHandler(async (req, res, next) => {
 
     const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
-    res.status(resConstants.CREATED).json({
+    res.status(constants.CREATED).json({
         success: true,
         message: 'User created successfully',
         token
@@ -167,7 +166,7 @@ const createUser = asyncHandler(async (req, res, next) => {
 //! @route   POST /api/customers/logout
 //FIXME @access  Public (for now)
 const logoutUser = asyncHandler(async (req, res, next) => {
-    res.status(resConstants.OK).json({
+    res.status(constants.OK).json({
         success: true,
         message: 'User logged out successfully'
     });

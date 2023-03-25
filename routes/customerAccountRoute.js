@@ -9,8 +9,8 @@ const { getUserProfile, updateUserProfile, updateUserPassword, loginUser, create
 const validateToken = require('../middleware/tokenValidator');
 
 
-router.route('/profile', validateToken).get(getUserProfile).put(updateUserProfile);
-router.put('/update-password', validateToken, updateUserPassword);
+router.route('/profile').get(validateToken, getUserProfile).put(updateUserProfile);
+router.put('/password', validateToken, updateUserPassword);
 router.post('/login', loginUser);
 router.post('/register', createUser);
 router.post('/logout', validateToken, logoutUser);

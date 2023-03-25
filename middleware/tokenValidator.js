@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const jwt = require('jsonwebtoken');
+const {constants} = require('../constants');
 
 const validateToken = asyncHandler(async (req, res, next) => {
     let token; 
@@ -7,19 +8,19 @@ const validateToken = asyncHandler(async (req, res, next) => {
     if(authHeader && authHeader.startsWith('Bearer')) {
         token = authHeader.split(' ')[1];
         if(!token) {
-            res.status(resConstants.UNAUTHORIZED);
+            res.status(constants.UNAUTHORIZED);
             throw new Error('Not authorized! No token found.');
         }
         jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
             if(err) {
-                res.status(resConstants.UNAUTHORIZED);
+                res.status(constants.UNAUTHORIZED);
                 throw new Error('Not authorized! Invalid token.');
             }
             req.user = decoded;
             next();
         });
     } else {
-        res.status(resConstants.UNAUTHORIZED);
+        res.status(constants.UNAUTHORIZED);
         throw new Error('Not authorized! No token found.');
     }
 });

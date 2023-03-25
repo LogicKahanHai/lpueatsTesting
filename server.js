@@ -1,3 +1,6 @@
+//[ ]: How to hide the password in the connection string and other sensitive data.
+
+
 const express = require('express');
 const {userDBConnection, kioskDBConnection} = require('./config/dbConnection');
 const errorHandler = require('./middleware/errorHandler');
