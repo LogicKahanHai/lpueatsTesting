@@ -18,7 +18,19 @@ app.use(errorHandler);
 
 
 app.get('/', (req, res) => {
-    res.send('Hello World');
+    res.send(`{<br/>
+        "message": "Welcome to the Kiosk API",<br/>
+        "version": "0.0.1",
+        "routes": {<br/>&emsp;
+            "profile": "/api/dev/customers/profile",<br/>&emsp;
+            "register": "/api/dev/customers/register",<br/>&emsp;
+            "login": "/api/dev/customers/login",<br/>&emsp;
+            "logout": "/api/dev/customers/logout",<br/>&emsp;
+            "updatePassword": "/api/dev/customers/password",<br/>&emsp;
+        }<br/>
+
+
+    }`);
 });
 
 kioskDBConnection().then(() => {
