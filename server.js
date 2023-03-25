@@ -14,20 +14,8 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(errorHandler);
 
-const homeString = 
-{
-    message: 'Welcome to the LPUEats API',
-    version: '0.0.1',
-    api_routes_currently_up: {
-        register: '/api/dev/customers/register',
-        login: '/api/dev/customers/login',
-        logout: '/api/dev/customers/logout',
-        profile: '/api/dev/customers/profile',
-        updatePassword: '/api/dev/customers/password'
-    }
-}
 
-var homeRes = JSON.stringify(homeString, null, 2);
+
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
