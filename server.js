@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(errorHandler);
 
 app.get('/', (req, res) => {
-    res.send({
+    res.send().json({
         message: 'Welcome to the LPUEats API',
         version: '0.0.1',
         api_routes_currently_up: {
