@@ -30,7 +30,7 @@ const homeString =
 var homeRes = JSON.stringify(homeString, null, 2);
 
 app.get('/', (req, res) => {
-    res.send(homeRes);
+    res.sendFile(__dirname + '/index.html');
 });
 
 kioskDBConnection().then(() => {
