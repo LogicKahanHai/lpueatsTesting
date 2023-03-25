@@ -18,12 +18,14 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
-userDBConnection();
+userDBConnection().then(() => {
+    app.listen(port, () => {
+        console.log(`Listening on port ${port}`);
+    });
+});
 app.use(express.json());
 app.use('/api/dev/customers', require('./routes/customerAccountRoute'));
 
 app.use(errorHandler);
-app.listen(port, () => {
-    console.log(`Listening on port ${port}`);
-});
+
 
