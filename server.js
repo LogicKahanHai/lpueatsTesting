@@ -14,18 +14,23 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(errorHandler);
 
+const homeString = `
+{
+    message: Welcome to the LPUEats API,
+    version: 0.0.1,
+    api_routes_currently_up: {
+        register: /api/dev/customers/register,
+        login: /api/dev/customers/login,
+        logout: /api/dev/customers/logout,
+        profile: /api/dev/customers/profile,
+        updatePassword: /api/dev/customers/password
+    }
+}`
+
+var homeRes = JSON.stringify(JSON.parse(homeString), null, 2);
+
 app.get('/', (req, res) => {
-    res.send(
-        `message: Welcome to the LPUEats API,\n
-        version: 0.0.1,\n
-        api_routes_currently_up: {\n\t
-            register: /api/dev/customers/register,\n\t
-            login: /api/dev/customers/login,\n\t
-            logout: /api/dev/customers/logout,\n\t
-            profile: /api/dev/customers/profile,\n\t
-            updatePassword: /api/dev/customers/password\n
-        }`
-    )
+    res.send(homeRes);
 });
 
 kioskDBConnection().then(() => {
