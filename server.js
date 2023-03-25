@@ -15,17 +15,17 @@ app.use(express.json());
 app.use(errorHandler);
 
 app.get('/', (req, res) => {
-    res.send({
-        'message': 'Welcome to the LPUEats API',
-        'version': '0.0.1',
-        'api_routes_currently_up': {
-            'register': '/api/dev/customers/register',
-            'login': '/api/dev/customers/login',
-            'logout': '/api/dev/customers/logout',
-            'profile': '/api/dev/customers/profile',
-            'updatePassword': '/api/dev/customers/password'
-        }
-    });
+    res.send(
+        `message: Welcome to the LPUEats API,
+        version: 0.0.1,
+        api_routes_currently_up: {
+            register: /api/dev/customers/register,
+            login: /api/dev/customers/login,
+            logout: /api/dev/customers/logout,
+            profile: /api/dev/customers/profile,
+            updatePassword: /api/dev/customers/password
+        }`
+    )
 });
 
 kioskDBConnection().then(() => {
