@@ -18,9 +18,9 @@ app.use(errorHandler);
 
 
 app.get('/', (req, res) => {
-    res.send(`{<br/>
-        "message": "Welcome to the Kiosk API",<br/>
-        "version": "0.0.1",<br/>
+    res.send(`{<br/>&emsp;
+        "message": "Welcome to the Kiosk API",<br/>&emsp;
+        "version": "0.0.1",<br/>&emsp;
         "routes_ready_for_testing": {<br/>&emsp;
             "profile": "/api/dev/customers/profile",<br/>&emsp;
             "register": "/api/dev/customers/register",<br/>&emsp;
